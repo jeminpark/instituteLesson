@@ -1,3 +1,4 @@
+import controller.ItemManager;
 import controller.ShopManager;
 import models.Shop;
 
@@ -7,6 +8,7 @@ public class Main {
 		
 		Shop.setName("SHOPPING");
 		ShopManager.instance.run();
+		
 		
 	}
 }

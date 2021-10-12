@@ -35,6 +35,7 @@ public class UserManager {
 		}
 		if(!check) {
 			User newUser = new User(randomCode(), id, pw, name);
+			this.users.add(newUser);
 		}
 		else {
 			System.out.println("중복된 아이디입니다.");

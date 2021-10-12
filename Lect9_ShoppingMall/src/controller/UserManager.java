@@ -13,11 +13,12 @@ public class UserManager {
 	
 	private UserManager() {}
 	
-	public void setAdmin() {
-		User admin = new User(9999, "admin", "0000","°ü¸®ÀÚ" );
-	}
-	
 	private ArrayList<User> users = new ArrayList<>();
+	
+	public void setAdmin() {
+		User admin = new User(9999, "admin", "0000", "ê´€ë¦¬ì");
+		this.users.add(admin);
+	}
 	
 	public void joinUser() {
 		System.out.print("id: ");
@@ -35,10 +36,11 @@ public class UserManager {
 		}
 		if(!check) {
 			User newUser = new User(randomCode(), id, pw, name);
-			System.out.println("È¸¿ø°¡ÀÔ¼º°ø");
+			this.users.add(newUser);
+			System.out.println("íšŒì›ê°€ì… ì„±ê³µ");
 		}
 		else {
-			System.out.println("Áßº¹µÇ´Â ¾ÆÀÌµğ°¡ ÀÖ½À´Ï´Ù.");
+			System.out.println("ì¤‘ë³µë˜ëŠ” ì•„ì´ë””ê°€ ìˆìŠµë‹ˆë‹¤.");
 		}
 	}
 	public int randomCode() {
@@ -66,13 +68,22 @@ public class UserManager {
 		String pw = Shop.scan.next();
 		
 		for(int i=0; i<this.users.size(); i++) {
-			if(users.get(i).getId().equals(id) && users.get(i).getPw().equals(pw)) {
-				System.out.println("·Î±×ÀÎ¼º°ø");
+			
+			if(this.users.get(i).getId().equals(id) && this.users.get(i).getPw().equals(pw)) {
+				System.out.println("ë¡œê·¸ì¸ì„±ê³µ");
 				return i;
 			}
 		}
 		return -1;
 		
+	}
+	public void printAllData() {
+		for(User user : this.users) {
+			System.out.println(user);
+		}
+	}
+	public int getUsersSize() {
+		return this.users.size();
 	}
 	
 }

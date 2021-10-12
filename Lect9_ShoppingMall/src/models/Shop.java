@@ -18,4 +18,6 @@ public class Shop {
 	public static void setName(String name) {
 		Shop.name = name;
 	}
+	
+	
 }
