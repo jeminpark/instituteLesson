@@ -9,39 +9,43 @@ public class User {
 	private int accCnt;
 	
 	// 보유계좌의 객체주소 배열
-	
-	private int[] Account;
-	
+			
 	public User(int userCode, String id, String pw, String name) {
 		this.userCode = userCode;
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 	}
+	public User(int userCode, String id, String pw, String name, int accCnt) {
+		this.userCode = userCode;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.accCnt = accCnt;
+	} 
 	
+	public int getUserCode() {
+		return this.userCode;
+	}
 	public String getId() {
 		return this.id;
 	}
 	public String getPw() {
 		return this.pw;
 	}
-	public int getUserCode() {
-		return this.userCode;
-	}	
-	public int[] getAccount() {
-		this.Account = new int[this.accCnt];
-		return this.Account;
+	public String getName() {
+		return this.name;
 	}
-	public void setAccount(int[] Account) {
-		this.Account = Account;
+	public int getAccCnt() {
+		return this.accCnt;
+	}
+	public void setAccCnt(int accCnt) {
+		this.accCnt = accCnt;
 	}
 	@Override
 	public String toString() {
-		String str = "";
-		str += this.userCode+""+"/";
-		str += this.id+"/";
-		str += this.name;
-		return str;
+		
+		return this.userCode + ") "+this.id+"/"+this.pw+"/"+this.name;
 	}
-	
+		
 }
