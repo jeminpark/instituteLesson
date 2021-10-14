@@ -4,10 +4,11 @@ import models.Shop;
 
 public class ShopManager {
 
+	private static CategoryManager cm = CategoryManager.instance;
 	private static ItemManager im = ItemManager.instance;
 	private static UserManager um = UserManager.instance;
 	public static ShopManager instance = new ShopManager();
-	String input = Shop.scan.next();
+	
 	private ShopManager() {}
 	
 	public void run() {
@@ -36,7 +37,7 @@ public class ShopManager {
 	}
 		
 	private boolean selectMenu() {
-		
+		String input = Shop.scan.next();
 		try {
 			int sel = Integer.parseInt(input);
 			
@@ -77,6 +78,7 @@ public class ShopManager {
 		
 	}
 	private void cartMenu() {
+		String input = Shop.scan.next();
 		System.out.println("1.내 장바구니\n2.삭제\n3.구입\n0.뒤로가기");
 		int sel = Integer.parseInt(input);
 		if(sel == 1) {
@@ -93,15 +95,20 @@ public class ShopManager {
 		}
 	}
 	private void shopMenu() {
-		im.printCategory();
-		System.out.println("카테고리 번호를 입력하세요. \n-1.종료하기");
-		int cateId = Integer.parseInt(this.input);
-		if(cateId == -1) {
-			printMainMenu();
+		
+		while(true) {
+			cm.printCategory();
+			System.out.println("카테고리 번호를 입력하세요. \n-1.종료하기");
+			String input = Shop.scan.next();
+			int cateId = Integer.parseInt(input);
+			if(cateId == -1) {
+				break;
+			}
+//		System.out.println("아이템 번호를 입력하세요.");
+//		im.printItemList();
+//		int itemId = Integer.parseInt(input);
+			
 		}
-		System.out.println("아이템 번호를 입력하세요.");
-		im.printItemList();
-		int itemId = Integer.parseInt(this.input);
 		
 	}
 }
