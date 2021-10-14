@@ -6,6 +6,7 @@ public class User {
 	private String id;
 	private String pw;
 	private String name;
+	private int myItemCnt;
 	
 	
 	public User (int userCode, String id, String pw, String name) {
@@ -26,6 +27,12 @@ public class User {
 	}
 	public String getName() {
 		return this.name;
+	}
+	public int getMyItemCnt() {
+		return this.myItemCnt;
+	}
+	public void setMyItemCnt(int myItemCnt) {
+		this.myItemCnt = myItemCnt;
 	}
 	@Override
 	public String toString() {

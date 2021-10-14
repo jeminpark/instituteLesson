@@ -15,7 +15,7 @@ public class ItemManager {
 	
 	private ArrayList<Cart> jangList = new ArrayList<>();
 	
-	private ItemManager() {
+	private ItemManager() {		
 		setItem();
 	}
 	
@@ -27,25 +27,35 @@ public class ItemManager {
 		this.items.add(temp);
 		temp = new Item("쇠고기", 5900, cm.get(1).getCateName());
 		this.items.add(temp);
+		temp = new Item("돼지고기", 4800, cm.get(1).getCateName());
+		this.items.add(temp);
+		temp = new Item("양파", 2000, cm.get(2).getCateName());
+		this.items.add(temp);
+		temp = new Item("콜라", 1000, cm.get(3).getCateName());
+		this.items.add(temp);
+		temp = new Item("토마토", 1500, cm.get(2).getCateName());
+		this.items.add(temp);
 		
-	}
-	public void printJang(User u) {
-		for(int i=0; i<this.jangList.size(); i++) {
-			if(u.getId().equals(jangList.get(i).getUserId())){
-				this.jangList.get(i).print();
+	}	
+	
+	public void printItemList(int cateId) {
+		int n = 0;
+		for(int i=0; i<this.items.size(); i++) {
+			if(cm.get(cateId).getCateName().equals(this.items.get(i).getCategory())){
+				System.out.print(n+") ");
+				System.out.print(this.items.get(i).toString());				
+				n++;
 			}
 		}
+		System.out.println();
+	}
+	public Item getItem(int index) {
+		return this.items.get(index);
+	}
+	public int getItemsSize() {
+		return this.items.size();
 	}
 	
-	public void printItemList() {
-		for(int i=0; i<this.items.size(); i++) {
-			System.out.print(i+1+") ");
-			this.items.get(i).getName();
-		}
-	}
-	public void printItemList(int cartId) {
-		
-	}
 	
 	
 	

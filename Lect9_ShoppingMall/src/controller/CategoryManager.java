@@ -35,6 +35,7 @@ public class CategoryManager {
 		for(int i=0; i<this.category.size(); i++) {
 			System.out.println(this.category.get(i).toString());
 		}
+		System.out.println();
 	}
 	public Categorys get(int index) {
 		return this.category.get(index);

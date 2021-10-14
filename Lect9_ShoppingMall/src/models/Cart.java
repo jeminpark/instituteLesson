@@ -3,10 +3,13 @@ package models;
 public class Cart {
 	private String userId;
 	private String itemName;
+	private int itemCnt;
 	
-	public Cart(String userId, String itemName) {
+	public Cart(String userId, String itemName, int itemCnt) {
 		this.userId = userId;
 		this.itemName = itemName;
+		this.itemCnt = itemCnt;
+		
 	}
 	
 	public String getUserId() {
@@ -15,8 +18,14 @@ public class Cart {
 	public String getItemName() {
 		return this.itemName;
 	}
+	public int getItemCnt() {
+		return this.itemCnt;
+	}
+	public void setItemCnt(int itemCnt) {
+		this.itemCnt = itemCnt;
+	}
 		
 	public void print() {
-		System.out.println(this.userId+"/"+"아이템: "+itemName);
+		System.out.println(this.userId+"/"+this.itemCnt+"/"+this.itemName);
 	}
 }

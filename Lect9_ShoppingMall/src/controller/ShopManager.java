@@ -4,6 +4,7 @@ import models.Shop;
 
 public class ShopManager {
 
+	private static CartManager ctm = CartManager.instance;
 	private static CategoryManager cm = CategoryManager.instance;
 	private static ItemManager im = ItemManager.instance;
 	private static UserManager um = UserManager.instance;
@@ -78,13 +79,21 @@ public class ShopManager {
 		
 	}
 	private void cartMenu() {
-		String input = Shop.scan.next();
 		System.out.println("1.내 장바구니\n2.삭제\n3.구입\n0.뒤로가기");
+		String input = Shop.scan.next();
 		int sel = Integer.parseInt(input);
 		if(sel == 1) {
-			
+			ctm.printCart(Shop.log);
 		}
 		else if(sel == 2) {
+			if(um.getUser(Shop.log).getMyItemCnt() > 0) {
+				ctm.removeCart(Shop.log);
+				
+			}
+			else {
+				System.out.println("장바구니가 비어있습니다.");
+			}
+							
 			
 		}
 		else if(sel == 3) {
@@ -104,11 +113,17 @@ public class ShopManager {
 			if(cateId == -1) {
 				break;
 			}
-//		System.out.println("아이템 번호를 입력하세요.");
-//		im.printItemList();
-//		int itemId = Integer.parseInt(input);
+			buyItem(cateId);
 			
 		}
 		
 	}
+	private void buyItem(int cateIdx) {
+		System.out.println("아이템 번호를 입력하세요.");
+		im.printItemList(cateIdx);
+		String input = Shop.scan.next();
+		int itemId = Integer.parseInt(input);
+		ctm.addCart(um.getUser(Shop.log).getId(), cateIdx, itemId);
+	}
+	
 }
