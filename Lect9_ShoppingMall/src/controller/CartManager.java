@@ -25,9 +25,8 @@ public class CartManager {
 		}
 	}
 	public void addCart(String userId, int cateId, int itemId) {
-		
 		int n = 0;
-		int cnt = um.getUser(Shop.log).getMyItemCnt();
+		int cnt = this.jangList.size();
 		Cart temp;
 		for(int i=0; i<im.getItemsSize(); i++) {
 			if(cm.get(cateId).getCateName().equals(im.getItem(i).getCategory())) {
@@ -35,31 +34,36 @@ public class CartManager {
 					temp = new Cart(userId, im.getItem(i).getName(), cnt);
 					this.jangList.add(temp);
 					System.out.println("장바구니 담기 완료");
-					um.getUser(Shop.log).setMyItemCnt(++cnt);
+					
 				}
 				n++;
 			}
 		}
+		System.out.println("cnt"+cnt);
 	}
 	public void removeCart(int log) {
 		printCart(Shop.log);
-		System.out.printf("삭제할 아이템을 고르세요. 0~%d", um.getUser(Shop.log).getMyItemCnt()-1);
+		System.out.printf("삭제할 아이템을 고르세요. 0~%d", this.jangList.size()-1);
 		String input = Shop.scan.next();
 		int sel = Integer.parseInt(input);
 		
-		int cnt = um.getUser(Shop.log).getMyItemCnt();
-		if(sel >= 0 && sel < um.getUser(Shop.log).getMyItemCnt()) {
-			for(int i=0; i<um.getUser(Shop.log).getMyItemCnt()-1; i++) {
-				if(sel == getCart(i).getItemCnt()) {
-					
-					
-					this.jangList.remove(getCart(sel));
-					um.getUser(Shop.log).setMyItemCnt(--cnt);
-					getCart(i).setItemCnt(--cnt) ;
-					System.out.println("아이템 삭제완료");
-				}
-			}
+		
+		int cnt = this.jangList.size();
+		if(sel >= 0 && sel < this.jangList.size()) {
 			
+			for(int i=0; i<this.jangList.size(); i++) {
+//				if(sel) {
+//					
+//				}
+			}
+		
+			
+			System.out.println("아이템 삭제 완료");
+			
+			
+		}
+		else {
+			System.out.println("잘못누르셨습니다.");
 		}
 		
 	}
