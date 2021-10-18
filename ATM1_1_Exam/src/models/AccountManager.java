@@ -12,16 +12,18 @@ public class AccountManager {
 	public static AccountManager instance = new AccountManager();
 	private ArrayList<Account> accs = new ArrayList<>();
 	
+	private AccountManager() {}
+	
 	public void createAcc() {
 		
 		int userCode = um.get(Bank.log).getUserCode();
 		int cnt = um.get(Bank.log).getAccCnt();
 		String userName = um.get(Bank.log).getName();
-		int money = 0;
+		
 		
 		if(cnt < 3) {			
 			
-				Account newAcc = new Account(randomCode(), userCode, userName, money );
+				Account newAcc = new Account(randomCode(), userCode, userName );
 				this.accs.add(newAcc);
 				um.get(Bank.log).setAccCnt(++cnt);
 				System.out.println("계좌 개설 완료");		
@@ -197,6 +199,12 @@ public class AccountManager {
 			System.out.print(this.accs.get(i)+"\n");
 		}
 		System.out.println();
+	}
+	public int getAccsSize() {
+		return this.accs.size();
+	}
+	public void loadAccount(Account acc) {
+		this.accs.add(acc);
 	}
 	
 	

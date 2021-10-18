@@ -107,4 +107,10 @@ public class UserManager {
 		}
 		System.out.println();
 	}
+	public int getUsersSize() {
+		return this.users.size();
+	}
+	public void loadUser(User user) {
+		this.users.add(user);
+	}
 }

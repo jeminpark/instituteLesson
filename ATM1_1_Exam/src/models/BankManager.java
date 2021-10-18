@@ -4,21 +4,26 @@ import controller.Bank;
 
 public class BankManager {
 	
+	private FileManager fm = FileManager.instance;
 	private AccountManager am = AccountManager.instance;
 	private UserManager um = UserManager.instance;
 	public static BankManager instance = new BankManager();
 
+	private BankManager() {}
+	
 	public void run() {
 		
+		fm.load();
 		System.out.println(Bank.getName());
 		
-		um.setAdmin();
+		
 		boolean isRun = true;
 		while(isRun) {
 			
 			printMainMenu();
 			isRun = selectMenu();
 		}
+		fm.save();
 	}
 	public void printMainMenu() {
 		if(Bank.log == -1) {

@@ -8,11 +8,17 @@ public class Account {
 	private String userName;
 	private int money;
 	
+	public Account(int accCode, int userCode, String userName) {
+		this.accCode = accCode;
+		this.userCode = userCode;
+		this.userName = userName;
+		
+	}
 	public Account(int accCode, int userCode, String userName, int money) {
 		this.accCode = accCode;
 		this.userCode = userCode;
 		this.userName = userName;
-		this.money = money+5000;
+		this.money = money;
 	}
 	public int getAccCode() {
 		return this.accCode;
@@ -24,7 +30,7 @@ public class Account {
 		return this.userName;
 	}
 	public int getMoney() {
-		return this.money;
+		return this.money+5000;
 	}
 	public void setMoney(int money) {
 		this.money = money;
