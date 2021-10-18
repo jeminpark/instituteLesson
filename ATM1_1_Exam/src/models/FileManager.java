@@ -10,46 +10,100 @@ import controller.User;
 
 public class FileManager {
 
-	private UserManager um = UserManager.instance;
-	private AccountManager am = AccountManager.instance;
-	
 	private File file;
 	private FileWriter fw;
 	private FileReader fr;
 	private BufferedReader br;
 	
-	private String fileUsersName = "Users.txt";
+	private String fileUsersName = "users.txt";
 	private String fileAccsName = "accs.txt";
-	public static FileManager instance = new FileManager();
 	
+	private UserManager um = UserManager.instance;
+	private AccountManager am = AccountManager.instance;
+	public static FileManager instance = new FileManager();
 	
 	public void save() {
 		String data = usersData();
 		try {
-			file = new File(fileUsersName);
-			fw = new FileWriter(file);
-			fw.write(data);
-			fw.close();
+			this.file = new File(fileUsersName);
+			this.fw = new FileWriter(file);
+			this.fw.write(data);
+			this.fw.close();
+		}
+		catch(Exception e) {
+			
+		}
+		data = accsData();
+		try {
+			this.file = new File(fileAccsName);
+			this.fw = new FileWriter(file);
+			this.fw.write(data);
+			this.fw.close();
 			
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			
 		}
-		data = accsData();
-			try {
-				file = new File(fileAccsName);
-				fw = new FileWriter(file);
-				fw.write(data);
-				fw.close();
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		
 	}
-	private String usersData() {
+	public void load() {
+		try {
+			this.file = new File(fileUsersName);
+			this.fr = new FileReader(file);
+			this.br = new BufferedReader(fr);
+			
+			String data = br.readLine();
+			while(data != null) {
+				String temp[] = data.split("/");
+				
+				int userCode = Integer.parseInt(temp[0]);
+				String userId = temp[1];
+				String userPw = temp[2];
+				String userName = temp[3];
+				int userAccCnt = Integer.parseInt(temp[4]);
+				
+				User user = new User(userCode, userId, userPw, userName, userAccCnt);
+				um.loadUser(user);
+				
+				data = br.readLine();
+			}
+			fr.close();
+			br.close();
+		}
+		catch(Exception e) {
+			
+		}
+		try {
+			this.file = new File(fileAccsName);
+			this.fr = new FileReader(file);
+			this.br = new BufferedReader(fr);
+			
+			String data = br.readLine();
+			while(data != null) {
+				String temp[] = data.split("/");
+				
+				int accCode = Integer.parseInt(temp[0]);
+				int userCode = Integer.parseInt(temp[1]);
+				String userName = temp[2];
+				int money = Integer.parseInt(temp[3]);
+				
+				Account acc = new Account(accCode, userCode, userName, money);
+				am.loadAccount(acc);
+				
+				data = br.readLine();
+			}
+			fr.close();
+			br.close();
+			
+			if(um.getUsersSize() == 0) {
+				um.setAdmin();
+			}
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	public String usersData() {
 		String data = "";
-		
 		for(int i=0; i<um.getUsersSize(); i++) {
 			data += um.get(i).getUserCode()+"/";
 			data += um.get(i).getId()+"/";
@@ -59,9 +113,8 @@ public class FileManager {
 		}
 		return data;
 	}
-	private String accsData() {
+	public String accsData() {
 		String data = "";
-		
 		for(int i=0; i<am.getAccsSize(); i++) {
 			data += am.getAcc(i).getAccCode()+"/";
 			data += am.getAcc(i).getUserCode()+"/";
@@ -70,66 +123,5 @@ public class FileManager {
 		}
 		return data;
 	}
-	public void load() {
-		try {
-			file = new File(fileUsersName);
-			fr = new FileReader(file);
-			br = new BufferedReader(fr);
-			
-			String data = br.readLine();
-			while(data != null) {
-				String info[] = data.split("/");
-				
-				int code = Integer.parseInt(info[0]);
-				String id = info[1];
-				String pw = info[2];
-				String name = info[3];
-				
-				int cnt = Integer.parseInt(info[4]);
-				
-				User user = new User(code, id, pw, name, cnt);
-				
-				um.loadUser(user);
-				
-				data = br.readLine();
-				
-				
-			}
-			fr.close();
-			br.close();
-			
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			file = new File(fileAccsName);
-			fr = new FileReader(file);
-			br = new BufferedReader(fr);
-			
-			String data = br.readLine();
-			while(data != null) {
-				String [] info = data.split("/");
-				
-				int num = Integer.parseInt(info[0]);
-				int code = Integer.parseInt(info[1]);
-				String name = info[2];
-				int money = Integer.parseInt(info[3]);
-				
-				Account acc = new Account(num, code, name, money);
-				am.loadAccount(acc);
-				
-				data = br.readLine();
-				
-			}
-			fr.close();
-			br.close();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		if(um.getUsersSize() == 0) {
-			um.setAdmin();
-		}
-	}
+	
 }
