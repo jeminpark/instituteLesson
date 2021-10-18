@@ -7,13 +7,13 @@ public class ShopManager {
 	private static ItemManager im = ItemManager.instance;
 	private static UserManager um = UserManager.instance;
 	public static ShopManager instance = new ShopManager();
-	String input = Shop.scan.next();
+	
 	private ShopManager() {}
 	
 	public void run() {
 		
-		System.out.println(Shop.getName());
 		um.setAdmin();
+		System.out.println(Shop.getName());
 		boolean isRun = true;
 		while(isRun) {
 			printMainMenu();		
@@ -21,7 +21,7 @@ public class ShopManager {
 		}
 	}
 	private void printMainMenu() {
-		
+		String input = Shop.scan.next();
 		if(Shop.log == -1) {
 			System.out.println("1.회원가입\n2.로그인\n3.종료");
 		}
@@ -36,7 +36,7 @@ public class ShopManager {
 	}
 		
 	private boolean selectMenu() {
-		
+		String input = Shop.scan.next();
 		try {
 			int sel = Integer.parseInt(input);
 			
@@ -77,6 +77,7 @@ public class ShopManager {
 		
 	}
 	private void cartMenu() {
+		String input = Shop.scan.next();
 		System.out.println("1.내 장바구니\n2.삭제\n3.구입\n0.뒤로가기");
 		int sel = Integer.parseInt(input);
 		if(sel == 1) {
@@ -93,15 +94,16 @@ public class ShopManager {
 		}
 	}
 	private void shopMenu() {
+		String input = Shop.scan.next();
 		im.printCategory();
 		System.out.println("카테고리 번호를 입력하세요. \n-1.종료하기");
-		int cateId = Integer.parseInt(this.input);
+		int cateId = Integer.parseInt(input);
 		if(cateId == -1) {
 			printMainMenu();
 		}
 		System.out.println("아이템 번호를 입력하세요.");
 		im.printItemList();
-		int itemId = Integer.parseInt(this.input);
+		int itemId = Integer.parseInt(input);
 		
 	}
 }
