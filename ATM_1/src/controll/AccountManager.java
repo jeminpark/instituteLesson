@@ -33,10 +33,18 @@ public class AccountManager {
 	}
 	public void deleteAcc() {
 		printAcc();
-		System.out.println("삭제할 계좌선택: ");
-		
+		System.out.println("삭제할 계좌선택: ");		
 		String input = Bank.scan.next();
 		int delIdx = findIndex(input);
+		
+		int cnt = um.getUser(Bank.log).getAccCnt();
+		
+		if(delIdx != -1) {
+			Account temp = this.Accs.get(delIdx);
+			this.Accs.remove(temp);
+			um.getUser(Bank.log).setAccCnt(-- cnt);
+			System.out.println("계좌 삭제 완료");
+		}
 	}
 	private int findIndex(String input) {
 		int index = -1;

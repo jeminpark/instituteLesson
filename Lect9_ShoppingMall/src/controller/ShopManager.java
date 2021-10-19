@@ -83,12 +83,11 @@ public class ShopManager {
 		String input = Shop.scan.next();
 		int sel = Integer.parseInt(input);
 		if(sel == 1) {
-			ctm.printCart(Shop.log);
+			ctm.printCart();
 		}
 		else if(sel == 2) {
-			if(um.getUser(Shop.log).getMyItemCnt() > 0) {
-				ctm.removeCart(Shop.log);
-				
+			if(ctm.getCartsSize() > 0) {
+				ctm.removeCart();				
 			}
 			else {
 				System.out.println("장바구니가 비어있습니다.");
@@ -97,7 +96,12 @@ public class ShopManager {
 			
 		}
 		else if(sel == 3) {
-			
+			if(ctm.getCartsSize() > 0) {
+				ctm.goPay();
+			}
+			else {
+				System.out.println("장바구니가 비어있습니다.");
+			}
 		}
 		else if(sel == 0) {
 			printMainMenu();
@@ -107,9 +111,9 @@ public class ShopManager {
 		
 		while(true) {
 			cm.printCategory();
-			System.out.println("카테고리 번호를 입력하세요. \n-1.종료하기");
+			System.out.println("카테고리 번호를 입력하세요. \n0.종료하기");
 			String input = Shop.scan.next();
-			int cateId = Integer.parseInt(input);
+			int cateId = Integer.parseInt(input)-1;
 			if(cateId == -1) {
 				break;
 			}
@@ -122,8 +126,8 @@ public class ShopManager {
 		System.out.println("아이템 번호를 입력하세요.");
 		im.printItemList(cateIdx);
 		String input = Shop.scan.next();
-		int itemId = Integer.parseInt(input);
-		ctm.addCart(um.getUser(Shop.log).getId(), cateIdx, itemId);
+		int itemIdx = Integer.parseInt(input)-1;
+		ctm.addCart(um.getUser(Shop.log).getId(), cateIdx, itemIdx);
 	}
 	
 }

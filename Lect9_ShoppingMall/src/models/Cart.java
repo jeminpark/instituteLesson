@@ -3,12 +3,13 @@ package models;
 public class Cart {
 	private String userId;
 	private String itemName;
-	private int itemCnt;
+	private int price;
+
 	
-	public Cart(String userId, String itemName, int itemCnt) {
+	public Cart(String userId, String itemName, int price) {
 		this.userId = userId;
 		this.itemName = itemName;
-		this.itemCnt = itemCnt;
+		this.price = price;
 		
 	}
 	
@@ -18,14 +19,15 @@ public class Cart {
 	public String getItemName() {
 		return this.itemName;
 	}
-	public int getItemCnt() {
-		return this.itemCnt;
+	public int getPrice() {
+		return this.price;
 	}
-	public void setItemCnt(int itemCnt) {
-		this.itemCnt = itemCnt;
+	
+	@Override
+	public String toString() {
+		
+		return this.userId+"/"+this.itemName+"/"+this.price+"/";
 	}
 		
-	public void print() {
-		System.out.println(this.userId+"/"+this.itemCnt+"/"+this.itemName);
-	}
+	
 }

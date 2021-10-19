@@ -95,7 +95,7 @@ public class BankManager {
 				um.printAllData();
 			}
 			else if(sel == 2) {
-				
+				am.printAllData();
 			}
 			else if(sel == 3) {
 				printMenu();

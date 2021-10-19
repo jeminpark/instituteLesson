@@ -39,11 +39,11 @@ public class ItemManager {
 	}	
 	
 	public void printItemList(int cateId) {
-		int n = 0;
+		int n = 1;
 		for(int i=0; i<this.items.size(); i++) {
-			if(cm.get(cateId).getCateName().equals(this.items.get(i).getCategory())){
+			if(cm.get(cateId).getCateName().equals(this.items.get(i).getCateName())){
 				System.out.print(n+") ");
-				System.out.print(this.items.get(i).toString());				
+				System.out.print(this.items.get(i));				
 				n++;
 			}
 		}
@@ -55,8 +55,6 @@ public class ItemManager {
 	public int getItemsSize() {
 		return this.items.size();
 	}
-	
-	
 	
 	
 	

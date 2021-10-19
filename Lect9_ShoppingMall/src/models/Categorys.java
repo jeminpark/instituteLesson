@@ -23,7 +23,7 @@ public class Categorys {
 	}
 	@Override
 	public String toString() {
-		return this.cateNum+")"+this.cateName;
+		return this.cateName;
 	}
 	
 	

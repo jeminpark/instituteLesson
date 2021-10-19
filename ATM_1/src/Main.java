@@ -4,7 +4,7 @@ import models.Bank;
 public class Main {
 	public static void main(String[] args) {	
 	
-		Bank.setName("HANA");
+		Bank.setName("ATM");
 		BankManager.instance.run();
 		
 	}

@@ -32,8 +32,11 @@ public class CategoryManager {
 		
 	}
 	public void printCategory() {
+		int n = 1;
 		for(int i=0; i<this.category.size(); i++) {
-			System.out.println(this.category.get(i).toString());
+			System.out.print(n+") ");
+			System.out.print(this.category.get(i)+"\n");
+			n++;
 		}
 		System.out.println();
 	}
