@@ -12,9 +12,7 @@ public class ItemManager {
 	public static ItemManager instance = new ItemManager();
 	
 	private ArrayList<Item> items = new ArrayList<>();
-	
-	private ArrayList<Cart> jangList = new ArrayList<>();
-	
+		
 	private ItemManager() {		
 		setItem();
 	}
@@ -43,7 +41,7 @@ public class ItemManager {
 		for(int i=0; i<this.items.size(); i++) {
 			if(cm.get(cateId).getCateName().equals(this.items.get(i).getCateName())){
 				System.out.print(n+") ");
-				System.out.print(this.items.get(i));				
+				System.out.print(this.items.get(i)+"\n");				
 				n++;
 			}
 		}
@@ -54,6 +52,13 @@ public class ItemManager {
 	}
 	public int getItemsSize() {
 		return this.items.size();
+	}
+	
+	public void printItemsAllData() {
+		for(int i=0; i<this.items.size(); i++) {
+			System.out.print(i+1+")");
+			System.out.print(this.items.get(i)+"\n");
+		}
 	}
 	
 	

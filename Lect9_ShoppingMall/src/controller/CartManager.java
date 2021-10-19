@@ -34,34 +34,29 @@ public class CartManager {
 		System.out.println("합: "+total);
 		System.out.println();
 	}
-//	public void addCart(String userId, int cateId, int itemId) {
-//		int n = 1;	
-//		Cart temp;
-//		for(int i=0; i<im.getItemsSize(); i++) {			
-//				
-//				if(cm.get(cateId).getCateName().equals(im.getItem(i).getCategory())) {
-//					if(itemId == n) {
-//						temp = new Cart(userId, im.getItem(itemId).getName(), im.getItem(itemId).getPrice());
-//						this.jangList.add(temp);
-//						System.out.println("장바구니 담기 완료");
-//						
-//					}
-//					n++;
-//				}
-//			
-//		}
-//		
-//	}
-	public void addCart(String userId, int cateIdx, int itemIdx) {
+	public void addCart(String userId, int cateId, int itemId) {
+		int n = 1;	
+		Cart temp;
+		for(int i=0; i<im.getItemsSize(); i++) {			
+				
+				if(cm.get(cateId).getCateName().equals(im.getItem(i).getCateName())) {
+					if(itemId == n) {
+						temp = new Cart(userId, im.getItem(itemId).getName(), im.getItem(itemId).getPrice());
+						this.jangList.add(temp);
+						System.out.println("장바구니 담기 완료");
+						
+					}
+					n++;
+				}
 			
-		
-		if(cm.get(cateIdx).getCateName().equals(im.getItem(itemIdx).getCateName())) {
-			Cart temp = new Cart(userId, im.getItem(itemIdx).getName(), im.getItem(itemIdx).getPrice());
-			this.jangList.add(temp);
-			System.out.println(temp+"담기 완료");
 		}
 		
 	}
+//	public void addCart(String userId, int cateIdx, int itemIdx) {
+//		
+//		Cart temp = new Cart(userId, im.getItem(itemIdx))
+//		
+//	}
 	
 //	public void removeCart(int log) {
 //		printCart(Shop.log);

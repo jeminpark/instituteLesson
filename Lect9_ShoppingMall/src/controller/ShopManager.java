@@ -4,10 +4,10 @@ import models.Shop;
 
 public class ShopManager {
 
-	private static CartManager ctm = CartManager.instance;
-	private static CategoryManager cm = CategoryManager.instance;
-	private static ItemManager im = ItemManager.instance;
-	private static UserManager um = UserManager.instance;
+	private  CartManager ctm = CartManager.instance;
+	private  CategoryManager cm = CategoryManager.instance;
+	private  ItemManager im = ItemManager.instance;
+	private  UserManager um = UserManager.instance;
 	public static ShopManager instance = new ShopManager();
 	
 	private ShopManager() {}
@@ -69,7 +69,8 @@ public class ShopManager {
 				}
 			}
 			if(sel == 5 && Shop.log == 0) {
-				
+				System.out.println("1.전체유저조회\n2.전체아이템조회\n3.전체카테고리조회\n4.뒤로가기");
+				selectedAdmin();
 			}
 		}
 		catch(Exception e) {
@@ -127,7 +128,24 @@ public class ShopManager {
 		im.printItemList(cateIdx);
 		String input = Shop.scan.next();
 		int itemIdx = Integer.parseInt(input)-1;
-		ctm.addCart(um.getUser(Shop.log).getId(), cateIdx, itemIdx);
+		
+		if(itemIdx != -1) {
+			ctm.addCart(um.getUser(Shop.log).getId(), cateIdx, itemIdx);
+			
+		}
+	}
+	
+	private void selectedAdmin() {
+		int sel = Shop.scan.nextInt();
+		if(sel == 1) {
+			
+		}
+		else if(sel == 2) {
+			im.printItemsAllData();
+		}
+		else if(sel == 3) {
+			
+		}
 	}
 	
 }
