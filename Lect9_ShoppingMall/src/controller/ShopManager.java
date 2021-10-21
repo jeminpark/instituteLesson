@@ -4,8 +4,10 @@ import models.Shop;
 
 public class ShopManager {
 
-	private static ItemManager im = ItemManager.instance;
-	private static UserManager um = UserManager.instance;
+	private  CartManager ctm = CartManager.instance;
+	private  CategoryManager cm = CategoryManager.instance;
+	private  ItemManager im = ItemManager.instance;
+	private  UserManager um = UserManager.instance;
 	public static ShopManager instance = new ShopManager();
 	
 	private ShopManager() {}
@@ -67,7 +69,8 @@ public class ShopManager {
 				}
 			}
 			if(sel == 5 && Shop.log == 0) {
-				
+				System.out.println("1.전체유저조회\n2.전체아이템조회\n3.전체카테고리조회\n4.뒤로가기");
+				selectedAdmin();
 			}
 		}
 		catch(Exception e) {
@@ -77,33 +80,83 @@ public class ShopManager {
 		
 	}
 	private void cartMenu() {
-		String input = Shop.scan.next();
+	
 		System.out.println("1.내 장바구니\n2.삭제\n3.구입\n0.뒤로가기");
+		String input = Shop.scan.next();
 		int sel = Integer.parseInt(input);
 		if(sel == 1) {
-			
+			ctm.printCart();
 		}
 		else if(sel == 2) {
+			if(ctm.getCartsSize() > 0) {
+				ctm.removeCart();				
+			}
+			else {
+				System.out.println("장바구니가 비어있습니다.");
+			}
+							
 			
 		}
 		else if(sel == 3) {
-			
+			if(ctm.getCartsSize() > 0) {
+				ctm.goPay();
+			}
+			else {
+				System.out.println("장바구니가 비어있습니다.");
+			}
 		}
 		else if(sel == 0) {
 			printMainMenu();
 		}
 	}
 	private void shopMenu() {
+
 		String input = Shop.scan.next();
-		im.printCategory();
+		cm.printCategory();
 		System.out.println("카테고리 번호를 입력하세요. \n-1.종료하기");
 		int cateId = Integer.parseInt(input);
 		if(cateId == -1) {
 			printMainMenu();
-		}
+
+		
+		while(true) {
+			cm.printCategory();
+			System.out.println("카테고리 번호를 입력하세요. \n0.종료하기");
+			
+			int cateId = Integer.parseInt(input)-1;
+			if(cateId == -1) {
+				break;
+			}
+			buyItem(cateId);
+			
+
 		System.out.println("아이템 번호를 입력하세요.");
 		im.printItemList();
 		int itemId = Integer.parseInt(input);
+
+	private void buyItem(int cateIdx) {
+		System.out.println("아이템 번호를 입력하세요.");
+		im.printItemList(cateIdx);
+		String input = Shop.scan.next();
+		int itemIdx = Integer.parseInt(input)-1;
 		
+		if(itemIdx != -1) {
+			ctm.addCart(um.getUser(Shop.log).getId(), cateIdx, itemIdx);
+			
+		}
 	}
+	
+	private void selectedAdmin() {
+		int sel = Shop.scan.nextInt();
+		if(sel == 1) {
+			
+		}
+		else if(sel == 2) {
+			im.printItemsAllData();
+		}
+		else if(sel == 3) {
+			
+		}
+	}
+	
 }

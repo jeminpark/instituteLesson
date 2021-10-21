@@ -82,8 +82,12 @@ public class UserManager {
 			System.out.println(user);
 		}
 	}
+	public User getUser(int index) {
+		return this.users.get(index);
+	}
 	public int getUsersSize() {
 		return this.users.size();
 	}
+	
 	
 }
