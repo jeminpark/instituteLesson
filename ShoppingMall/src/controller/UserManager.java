@@ -81,4 +81,10 @@ public class UserManager {
 	public User getUser(int index) {
 		return this.users.get(index);
 	}
+	public void printUser() {
+		for(int i=0; i<this.users.size(); i++) {
+			System.out.print(i+1+")");
+			System.out.print(this.users.get(i)+"\n");
+		}
+	}
 }
