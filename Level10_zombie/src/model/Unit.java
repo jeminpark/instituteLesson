@@ -8,10 +8,11 @@ public abstract class Unit {
 	private int hp;
 	private int att;
 	private int def;
-	private int pos;
+	private int position;
 	
 	public String getName() {
 		return this.name;
+		
 	}
 	public int getHp() {
 		return this.hp;
@@ -23,41 +24,42 @@ public abstract class Unit {
 		return this.att;
 	}
 	public void setAtt(int att) {
-		this.att =att;
+		this.att = att;
 	}
 	public int getDef() {
-		return this.def;
+		return def;
 	}
 	public void setDef(int def) {
 		this.def = def;
 	}
-	public int getPos() {
-		return this.pos;
+	public int getPosition() {
+		return this.position;
 	}
-	public void setPos(int pos) {
-		this.pos = pos;
+	public void setPosition(int position) {
+		this.position = position;
 	}
-	Unit(String name, int hp, int att, int def, int pos){
+	public Unit(String name, int hp, int att, int def, int position) {
 		this.name = name;
 		this.hp = hp;
 		this.att = att;
 		this.def = def;
-		
+		this.position = position;
 	}
 	public void attack(Unit target) {
-		int dam = (this.att - target.def)*(rand.nextInt(150)+50/100);
-		if(dam <= 0 ) {
+		int dam = (this.att - target.def)*(rand.nextInt(150)+50)/100;
+		if(dam <= 0) {
 			dam = 1;
 		}
-		System.out.println(name+ "의 공격!");
-		System.out.println(dam+"의 데미지!");
+		System.out.printf("%s의 공격!\n", this.name);
+		System.out.printf("%d의 데미지!\n", dam);
 		target.setHp(target.getHp()-dam);
 		System.out.println(target.name+"의 남은 체력: "+target.hp);
-	}
-	public void print() {
-		System.out.println("[이름]: "+name+"  [체력]: "+hp);
-		System.out.println("[공격력]: "+att+"  [방어력]:"+def+"  [위치]: "+pos);
 		
 	}
+	public void print() {
+		System.out.println("[이름]: "+this.name+"   [체력]: "+this.hp);
+		System.out.println("[공격력]: "+this.att+"   [방어력]: "+this.def+"   [위치]: "+this.position);
+	}
+	
 	
 }
