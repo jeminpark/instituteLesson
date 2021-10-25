@@ -1,6 +1,6 @@
 package model;
 
-public class Player extends Unit{
+public class Player extends Unit implements Attack{
 	private int cnt = 3;
 	public Player(String name, int hp, int att, int def, int position) {
 		super(name, hp, att, def, position);

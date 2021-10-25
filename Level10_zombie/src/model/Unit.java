@@ -2,6 +2,16 @@ package model;
 
 import java.util.Random;
 
+interface Damageable{
+	public void damage(int att);
+}
+interface Attack{
+	public void attack(Unit attack);
+}
+interface Recover{
+	
+}
+
 public abstract class Unit {
 	Random rand = new Random();
 	private String name;
