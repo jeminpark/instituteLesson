@@ -67,7 +67,7 @@ public class Game {
 				break;
 			}
 			System.out.println();
-			((Zombie) enemy).attack(this.p);
+			enemy.attack(this.p);
 			if(die(enemy)!= 0) {
 				break;
 			}

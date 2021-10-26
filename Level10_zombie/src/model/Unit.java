@@ -2,12 +2,12 @@ package model;
 
 import java.util.Random;
 
-interface Damageable{
-	public void damage(int attack);
-}
-interface Attack{
-	public void attack(Unit target);
-}
+//interface Damageable{
+//	public void damage(int attack);
+//}
+//interface Attack{
+//	public void attack(Unit target);
+//}
 interface Heal{
 	public void heal();
 }
@@ -55,17 +55,17 @@ public abstract class Unit {
 		this.def = def;
 		this.position = position;
 	}
-//	public void attack(Unit target) {
-//		int dam = (this.att - target.def)*(rand.nextInt(150)+50)/100;
-//		if(dam <= 0) {
-//			dam = 1;
-//		}
-//		System.out.printf("%s의 공격!\n", this.name);
-//		System.out.printf("%d의 데미지!\n", dam);
-//		target.setHp(target.getHp()-dam);
-//		System.out.println(target.name+"의 남은 체력: "+target.hp);
-//		
-//	}
+	public void attack(Unit target) {
+		int dam = (this.att - target.def)*(rand.nextInt(150)+50)/100;
+		if(dam <= 0) {
+			dam = 1;
+		}
+		System.out.printf("%s의 공격!\n", this.name);
+		System.out.printf("%d의 데미지!\n", dam);
+		target.setHp(target.getHp()-dam);
+		System.out.println(target.name+"의 남은 체력: "+target.hp);
+		
+	}
 	
 	public void print() {
 		System.out.println("[이름]: "+this.name+"   [체력]: "+this.hp);
