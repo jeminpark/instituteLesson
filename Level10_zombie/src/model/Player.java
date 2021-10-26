@@ -1,6 +1,6 @@
 package model;
 
-public class Player extends Unit implements Attack{
+public class Player extends Unit implements Attack, Damageable{
 	private int cnt = 3;
 	public Player(String name, int hp, int att, int def, int position) {
 		super(name, hp, att, def, position);
@@ -45,4 +45,8 @@ public class Player extends Unit implements Attack{
 			super.attack(target);
 		}
 	}
+	public void damage(int attack) {
+		
+	}
+	
 }

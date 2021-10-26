@@ -3,13 +3,10 @@ package model;
 import java.util.Random;
 
 interface Damageable{
-	public void damage(int att);
+	public void damage(int attack);
 }
 interface Attack{
 	public void attack(Unit attack);
-}
-interface Recover{
-	
 }
 
 public abstract class Unit {
@@ -66,10 +63,12 @@ public abstract class Unit {
 		System.out.println(target.name+"의 남은 체력: "+target.hp);
 		
 	}
+	
 	public void print() {
 		System.out.println("[이름]: "+this.name+"   [체력]: "+this.hp);
 		System.out.println("[공격력]: "+this.att+"   [방어력]: "+this.def+"   [위치]: "+this.position);
 	}
+	
 	
 	
 }
