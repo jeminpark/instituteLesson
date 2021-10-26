@@ -10,7 +10,7 @@ import model.Zombie;
 import model.ZombieKing;
 
 public class Game {
-	Random rand = new Random();
+	public static Random rand = new Random();
 	Scanner scan = new Scanner(System.in);
 	public static Game instance = new Game();
 	private Player p;
@@ -67,7 +67,7 @@ public class Game {
 				break;
 			}
 			System.out.println();
-			enemy.attack(this.p);
+			((Zombie) enemy).attack(this.p);
 			if(die(enemy)!= 0) {
 				break;
 			}
