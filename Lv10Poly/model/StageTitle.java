@@ -1,3 +1,6 @@
+package model;
+import controller.GameManager;
+
 public class StageTitle extends Stage{
 
 	@Override

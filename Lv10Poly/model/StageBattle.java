@@ -1,5 +1,9 @@
+package model;
 import java.util.Random;
 import java.util.Vector;
+
+import controller.GameManager;
+import controller.UnitManager;
 
 public class StageBattle extends Stage{
 	UnitManager unitManager = new UnitManager();

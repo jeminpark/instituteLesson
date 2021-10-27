@@ -1,3 +1,4 @@
+package model;
 public abstract class Unit {
 	int curhp;
 	int maxhp;
@@ -11,18 +12,18 @@ public abstract class Unit {
 		curhp = max;
 		power = pw;
 	};
-	void init(int max , int pw){
+	public void init(int max , int pw){
 		maxhp = max;
 		curhp = max;
 		power = pw;
 	};
-	void init(String na , int max , int pw){
+	public void init(String na , int max , int pw){
 		name = na;
 		maxhp = max;
 		curhp = max;
 		power = pw;
 	};
-	void attack(Unit target) {
+	public void attack(Unit target) {
 		target.curhp -= power;
 		System.out.println("[" + name + "] 이 " + "[" + target.name + "] 에게 "
 				+ power + "의 데미지를 입힙니다. ");
@@ -31,7 +32,7 @@ public abstract class Unit {
 			target.curhp = 0;
 		}
 	}
-	void printData() {
+	public void printData() {
 		System.out.println("["+name + "] [" + curhp + "/" + maxhp + "] [" + power +"]");
 	}
 }

@@ -1,3 +1,6 @@
+package model;
+import controller.GameManager;
+
 public class StageLobby extends Stage{
 	@Override
 	public boolean update() {

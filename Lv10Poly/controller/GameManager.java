@@ -1,7 +1,13 @@
+package controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+
+import model.Stage;
+import model.StageBattle;
+import model.StageLobby;
+import model.StageTitle;
 
 public class GameManager {
 	Random ran = new Random();
@@ -9,7 +15,7 @@ public class GameManager {
 	public static String nextStage = "";
 	String curStage = "";
 	Map<String , Stage> stageList = new HashMap<String , Stage>();
-	GameManager(){
+	public GameManager(){
 		
 		stageList.put("TITLE", new StageTitle());
 		stageList.put("BATTLE", new StageBattle());
@@ -18,7 +24,7 @@ public class GameManager {
 		nextStage = "TITLE";
 	}
 	
-	boolean changeStage() {
+	public boolean changeStage() {
 	//	System.out.println("curStage : " + curStage);
 	//	System.out.println("nextStage : " + nextStage);
 		

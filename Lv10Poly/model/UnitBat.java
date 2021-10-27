@@ -1,8 +1,9 @@
+package model;
 public class UnitBat extends Unit{
-	UnitBat(){
+	public UnitBat(){
 		name = "박쥐";
 	}
-	void skill() {		
+	public void skill() {		
 		System.out.println("적 한명에게 침묵 시전 ");
 	}
 }

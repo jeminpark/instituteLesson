@@ -1,8 +1,9 @@
+package model;
 public class Player extends Unit{
 	
 	
 	
-	Player(String na , int max , int pow){
+	public Player(String na , int max , int pow){
 		super(na, max , pow);
 	}
 	
