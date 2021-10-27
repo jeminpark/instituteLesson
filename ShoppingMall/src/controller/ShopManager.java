@@ -66,16 +66,16 @@ public class ShopManager {
 		if(Shop.log == 0 && sel == 5) {
 			System.out.println("1.전체유저조회\n2.전체아이템조회\n3.전체카테고리조회\n4.전체장바구니조회\n5.매출액조회\n0.뒤로가기");
 			if(sel == 1) {
-				
+				um.printUser();
 			}
 			else if(sel == 2) {
-				
+				im.printItem();
 			}
 			else if(sel == 3) {
-				
+				cm.printCategory();
 			}
 			else if(sel == 4) {
-				
+				ctm.printAllCart();
 			}
 			else if(sel == 5) {
 				

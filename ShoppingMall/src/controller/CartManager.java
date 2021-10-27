@@ -7,6 +7,7 @@ import models.Shop;
 
 public class CartManager {
 
+	private ReceiptManager rm = ReceiptManager.instance;
 	private ItemManager im = ItemManager.instance;
 	private UserManager um = UserManager.instance;
 	public static CartManager instance = new CartManager();
@@ -85,4 +86,43 @@ public class CartManager {
 		return index;
 		
 	}
+	public void purchase() {
+		printCart();
+		
+		int userCode = um.getUser(Shop.log).getUserCode();
+		int total = 0;
+		
+		String ItemName = "";
+		String userId = um.getUser(Shop.log).getId();
+		int purchaseCnt = 0;
+		
+		
+		int check = -1;
+		for(int i=0; i<this.cartList.size(); i++) {
+			if(userCode == this.cartList.get(i).getCartUserCode()) {
+				total += this.cartList.get(i).getCartItemPrice();
+				check = i;
+				ItemName = this.
+				purchaseCnt++;
+			}
+		}
+		
+		System.out.println("총 지불할금액: "+total+" 원");
+		System.out.print("금액입력: ");
+		int money = Shop.scan.nextInt();
+		
+		if(money > 0 && money >= total) {
+			
+			
+			rm.payComplete(userId, userCode, );
+		}
+		
+	}
+	public void printAllCart() {
+		for(int i=0; i<this.cartList.size(); i++) {
+			System.out.print(i+1+") ");
+			System.out.print(this.cartList.get(i)+"\n");
+		}
+	}
+	
 }

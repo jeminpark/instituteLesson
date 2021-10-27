@@ -52,4 +52,10 @@ public class ItemManager {
 	public int getItemsSize() {
 		return this.items.size();
 	}
+	public void printItem() {
+		for(int i=0; i<this.items.size(); i++) {
+			System.out.print(i+1+") ");
+			System.out.print(this.items.get(i)+"\n");
+		}
+	}
 }
