@@ -28,11 +28,11 @@ public class StageBattle extends Stage{
 		//System.out.println(playerSize + " " + monSize);
 		System.out.println("======[PLAYER]======");
 		for(int i = 0; i < playerList.size(); i++) {
-			playerList.get(i).printData();
+			this.playerList.get(i).printData();
 		}
 		System.out.println("======[MONSTER]======");
 		for(int i = 0; i < monList.size(); i++) {
-			monList.get(i).printData();
+			this.monList.get(i).printData();	
 		}
 	}
 	void player_attack(int index) {
