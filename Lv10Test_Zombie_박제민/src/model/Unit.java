@@ -1,14 +1,14 @@
 package model;
 
 import java.util.Random;
+interface UpgradeArmor{
+	public void upgrade();
+}
 
 interface Heal{
 	
 }
-interface UpgradeArmor{
-	public void upgrade();
-}
-public abstract class Unit {
+public class Unit {
 	Random rand = new Random();
 	private String name;
 	private int hp;
@@ -53,16 +53,16 @@ public abstract class Unit {
 		this.def = def;
 		this.position = position;
 	}
-	public abstract void attack(Unit target);
-//		int damage = (this.attack - target.def)*(rand.nextInt(150)+50)/100;
-//		if(damage <= 0) {
-//			damage = 1;
-//		}
-//		System.out.printf("%s의 공격!\n", this.name);
-//		System.out.printf("%d의 데미지!\n", damage);
-//		target.setHp(target.getHp()-damage);
-//		System.out.printf("%s의 남은체력: %d\n",target.name, target.hp);
-	
+	public void attack(Unit target) {
+		int damage = (this.attack - target.def)*(rand.nextInt(150)+50)/100;
+		if(damage <= 0) {
+			damage = 1;
+		}
+		System.out.printf("%s의 공격!\n", this.name);
+		System.out.printf("%d의 데미지!\n", damage);
+		target.setHp(target.getHp()-damage);
+		System.out.printf("%s의 남은체력: %d\n",target.name, target.hp);
+	}
 	public void printData() {
 		System.out.printf("[이름: %s]   [체력: %d]\n", this.name, this.hp);
 		System.out.printf("[공격력: %d]   [방어력: %d]   [위치: %d]\n", this.attack, this.def, this.position);

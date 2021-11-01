@@ -59,6 +59,7 @@ public class Game {
 				this.p.Heal();
 				
 			}
+			System.out.println();
 			enemy.attack(this.p);
 			if(die(enemy) != 0) {
 				break;
@@ -93,7 +94,10 @@ public class Game {
 		setGame();
 		int act = 1;			
 		while(true) {
-			
+			if(this.p.getPosition() >= 12) {
+				System.out.println("생존에 성공했다.");
+				break;
+			}
 			map(act);
 			int sel = scan.nextInt();
 			
@@ -102,7 +106,7 @@ public class Game {
 				//check
 				int check = check();
 				if(check != -1) {
-					//싸움이 일어나야함.
+					
 					boolean battleRun = true;
 					battleRun = battle(this.enemy.get(check));
 					if(battleRun == false) {
