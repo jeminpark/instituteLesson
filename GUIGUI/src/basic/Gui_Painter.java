@@ -2,11 +2,14 @@ package basic;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 class PaintRect{
@@ -65,7 +68,20 @@ class PaintRect{
 class PaintPanel extends Gui_MyUtil{
 	
 	private ArrayList<PaintRect> rect = new ArrayList<>();
-	private PaintRect rectEx;
+	private ArrayList<PaintRect> circles = new ArrayList<>();
+	private ArrayList<PaintRect> triangle = new ArrayList<>();
+	
+	String[] btnText = {"ㅁ","ㅇ","ㅅ"};
+	JButton[] btn = new JButton[3];
+	
+	
+	private PaintRect rectEx = null;
+	
+	private final int RECTANGLE = 0;
+	private final int CIRCLE = 1;
+	private final int TRIANGLE = 2;
+	
+	private int type = -1;
 	
 	private int startX;
 	private int startY;
@@ -85,11 +101,29 @@ class PaintPanel extends Gui_MyUtil{
 		setFocusable(true);
 		addKeyListener(this);
 		setColor();
+		setButton();
+	}
+	private void setButton() {
+		int x = 30;
+		int y = 50;
+		
+		for(int i=0; i<this.btn.length; i++) {
+			this.btn[i] = new JButton();
+			
+			this.btn[i].setBounds(x,y,50,50);
+			this.btn[i].setText(btnText[i]);
+			this.btn[i].setFont(new Font("",Font.BOLD, 15));
+			this.btn[i].addActionListener(this);
+			
+			add(this.btn[i]);
+			
+			y+=50+3;
+		}
 	}
 	private Color setColor() {
 		Random rand = new Random();
 		
-		Color colorPack[] = {Color.green, Color.red, Color.blue, Color.gray};
+		Color colorPack[] = {Color.green, Color.red, Color.blue, Color.gray,Color.black, Color.orange};
 		
 		for(int i=0; i<1000; i++) {
 			int rColor = rand.nextInt(colorPack.length);
@@ -109,17 +143,66 @@ class PaintPanel extends Gui_MyUtil{
 		
 		super.paintComponent(g);
 		
-		if(this.rect != null && this.rectEx != null) {
+		if(this.rectEx != null) {
 			
 			g.setColor(rectEx.getC());
-			g.drawRect(rectEx.getX(), rectEx.getY(), rectEx.getW(), rectEx.getH());
 			
-			for(int i=0; i<this.rect.size(); i++) {
-				PaintRect r = this.rect.get(i);
+			if(this.type == RECTANGLE) {
+				g.drawRect(rectEx.getX(), rectEx.getY(), rectEx.getW(), rectEx.getH());
 				
-				g.setColor(r.getC());
-				g.drawRect(r.getX(), r.getY(), r.getW(), r.getH());
 			}
+			else if(this.type == CIRCLE) {
+				g.drawRoundRect(this.rectEx.getX(), this.rectEx.getY(), this.rectEx.getW(), this.rectEx.getH(), this.rectEx.getW(), this.rectEx.getH() );
+			}
+			else if(this.type == TRIANGLE) {
+				int[] xx = new int[3];
+				int[] yy = new int[3];
+				
+				xx[0] = this.rectEx.getX();
+				yy[0] = this.rectEx.getY();
+//				xx[1] = this.rectEx.getW()/2 + this.rectEx.getX();
+//				yy[1] = this.rectEx.getH();
+//				xx[2] = this.rectEx.getX() - this.rectEx.getW()/2;
+//				yy[2] = this.rectEx.getH();
+				
+				//------------------------------------------------------	
+				xx[1] = this.rectEx.getX() - this.rectEx.getW()/2;
+				yy[1] = this.rectEx.getY() + this.rectEx.getH();
+				xx[2] = this.rectEx.getX() + this.rectEx.getW()/2;
+				yy[2] = this.rectEx.getY() + this.rectEx.getH();
+				
+				g.drawPolygon(xx,yy,3);
+				
+			}
+			
+		}
+		for(int i=0; i<this.rect.size(); i++) {
+			PaintRect r = this.rect.get(i);
+			
+			g.setColor(r.getC());
+			g.drawRect(r.getX(), r.getY(), r.getW(), r.getH());
+		}
+		for(int i=0; i<this.circles.size(); i++) {
+			PaintRect r = this.circles.get(i);
+			
+			g.setColor(r.getC());
+			g.drawRoundRect(r.getX(), r.getY(), r.getW(), r.getH(), r.getW(), r.getH() );
+			
+		}
+		for(int i=0; i<this.triangle.size(); i++) {
+			PaintRect r = this.triangle.get(i);
+			
+			int[] xx = new int[3];
+			int[] yy = new int[3];
+			xx[0] = r.getX();
+			yy[0] = r.getY();
+			xx[1] = r.getW()/2 + r.getX();
+			yy[1] = r.getH();
+			xx[2] = r.getX() - r.getW()/2;
+			yy[2] = r.getH();
+			
+			g.setColor(r.getC());
+			g.drawPolygon(xx,yy, 3);
 		}
 		
 		requestFocusInWindow();
@@ -136,16 +219,20 @@ class PaintPanel extends Gui_MyUtil{
 		this.recW = Math.abs(x- this.startX);
 		this.recH = Math.abs(y- this.startY);
 		
+		//수정된 삼각형연산자를 역삼각형 만들기위해 삼항연산자를 쓴다.
+//		this.recW = this.type == TRIANGLE ? x-this.startX : Math.abs(x- this.startX);
+//		this.recH = this.type == TRIANGLE ? y-this.startY : Math.abs(y- this.startY);
+		
 		if(shift) {
 			this.recW = this.recH;
 		}
 		
 		this.recX = this.startX;
 		this.recY = this.startY;
-		if(x< startX) {
+		if(x< startX && this.type != TRIANGLE) {
 			this.recX = this.startX - this.recW;
 		}
-		if(y < this.startY) {
+		if(y < this.startY && this.type != TRIANGLE) {
 			this.recY = this.startY - this.recH;
 		}
 //		for(PaintRect rect : this.rect) {
@@ -166,8 +253,21 @@ class PaintPanel extends Gui_MyUtil{
 		
 		super.mouseReleased(e);
 		
+		this.rectEx.setC(Color.red);
 		
-		this.rect.add(new PaintRect (recX, recY, recW, recH, setColor()));
+		if(this.type == RECTANGLE) {
+			this.rect.add(new PaintRect (recX, recY, recW, recH, setColor()));
+			this.rectEx = null;
+			
+		}
+		else if(this.type == CIRCLE) {
+			this.circles.add(new PaintRect (recX, recY, recW, recH, setColor()));
+			this.rectEx = null;
+		}
+		else if(this.type == TRIANGLE) {
+			this.triangle.add(new PaintRect (recX, recY, recW, recH, setColor()));
+			this.rectEx = null;
+		}
 		
 		
 	}
@@ -186,6 +286,21 @@ class PaintPanel extends Gui_MyUtil{
 		super.keyReleased(e);
 		if(e.getKeyCode() == e.VK_SHIFT) {
 			this.shift = false;
+		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		super.actionPerformed(e);
+		
+		if(e.getSource() == this.btn[RECTANGLE]) {
+			this.type = RECTANGLE;
+		}
+		else if(e.getSource() == this.btn[CIRCLE]) {
+			this.type = CIRCLE;
+		}
+		else if(e.getSource() == this.btn[TRIANGLE]) {
+			this.type = TRIANGLE;
 		}
 	}
 	
