@@ -14,6 +14,12 @@ public class Unit {
 	private String fileName;
 	private ImageIcon image;
 	
+	private int state;
+	
+	public final int RUN = 0;
+	public final int STOP = 1;
+	public final int MOVE = 2;
+	
 	public Unit(int num, int x, int y, int w, int h) {
 		this.num = num;
 		this.x = x;
@@ -79,7 +85,12 @@ public class Unit {
 	public void setImage(ImageIcon image) {
 		this.image = image;
 	}
-	
+	public int getState() {
+		return this.state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	
 	
 }

@@ -24,6 +24,19 @@ public class GameManager extends MyUtil {
 	private final int RIGHT = 2;
 	private final int UP = 3;
 	
+	private int playerX;
+	private int playerY;
+	
+	private int wallX;
+	private int wallY;
+	
+	private int passX;
+	private int passY;
+	
+	private final int WALL = 2;
+	private final int PASS = 1;
+	
+	
 	private int dir = 5;
 
 	private int yx[][] ={ {1,1,2,2,2,2,2,1},
@@ -86,39 +99,103 @@ public class GameManager extends MyUtil {
 
 	private void playGame() {
 	
-		int idx1 = 0;
-		int idx2 = 0;
+		
 		
 		for(int i=0; i<this.map.length; i++) {
 			
 			for(int j=0; j<this.map[i].length; j++) {
 				if(this.yx[i][j] == 3) {
-						idx1 = i;
-						idx2 = j;
+						this.playerY = i;
+						this.playerX = j;
 				}
+				
+			}
+		}
+		Unit p = this.map[playerY][playerX];
+		
+		int x = this.playerY;
+		int y = this.playerX;
+		
+	
+		
+		if(playerX-1 > 0 ) {
+			for(int i=0; i<this.map.length; i++) {
+				for(int j=0; j<this.map[i].length; j++) {
+					
+					if(this.yx[i][j] == WALL) {
+						wallY = i;
+						wallX = j;
+						
+					}
+					if(this.yx[i][j] == PASS) {
+						passY = i;
+						passX = j;
+						
+					}
+				}
+			}
+			
+			if(this.yx[wallY][wallX] == this.yx[playerY][playerX]) {
+				
+				p.setState(p.STOP);
+			}
+			else if(this.yx[passY][passX] == this.yx[playerY][playerX]) {
+				p.setState(p.RUN);
 			}
 		}
 		
-		if(this.dir == LEFT) {
-			this.map[idx1][idx2].setX(this.map[idx1][idx2].getX()-50);
+		
+				
+		if(this.dir == LEFT) {		
+			
+			
+			if(p.getState() == p.RUN) {
+				
+				
+				p.setX(p.getX()-50);
+				
+			}
+			
+			
 		}
 		else if(this.dir == DOWN) {
-			this.map[idx1][idx2].setY(this.map[idx1][idx2].getY()+50);
+			
+			
+			if(p.getState() == p.RUN) {
+				
+				if(p.getX()-1 > 0 ) {
+					p.setY(p.getY()+50);
+					
+				}
+			}
+			
 		}
 		else if(this.dir == RIGHT) {
-			this.map[idx1][idx2].setX(this.map[idx1][idx2].getX()+50);
+			
+			
+			if(p.getState() == p.RUN) {
+				p.setX(p.getX()+50);
+			}
+			
 		}
 		else if(this.dir == UP) {
-			this.map[idx1][idx2].setY(this.map[idx1][idx2].getY()-50);
+		
+			
+			if(p.getState() == p.RUN) {
+				p.setY(p.getY()-50);
+			}
 		}
 		
 	}
+	
+	
+	
 
 	private void setMap() {
 		this.map = new Unit[H][W];
 		
 		int x = 700/2-50*8/2 ;
-		int y = 700/2-50*8/2 ;
+		int y = 700/2-50*9/2 ;
 		
 		
 		for(int i=0; i<this.H; i++) {		
@@ -151,7 +228,12 @@ public class GameManager extends MyUtil {
 				Unit m = this.map[i][j];
 				
 				g.drawImage(m.getImage().getImage(), m.getX(), m.getY(), null);
+				
+				
+				
 			}
+			
+			
 		}
 //		playGame();
 		requestFocusInWindow();
