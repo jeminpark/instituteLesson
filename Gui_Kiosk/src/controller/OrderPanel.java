@@ -2,9 +2,11 @@ package controller;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import model.Coffee;
@@ -21,7 +23,8 @@ public class OrderPanel extends Gui_MyUtil{
 	private KioskRect[] menu = null;
 	JButton coffeeButton;
 	JButton teaButton;
-	
+	JButton[] coffeeMenu;
+	JButton[] teaMenu;
 	
 	
 	public OrderPanel() {
@@ -32,6 +35,27 @@ public class OrderPanel extends Gui_MyUtil{
 		setButton();
 		
 		setCoffee();
+		setCoffeeMenu();
+		
+	}
+	private void setCoffeeMenu() {
+		this.coffeeMenu = new JButton[16];
+		
+		int x = 50;
+		int y = 50;
+		
+		for(int i=0; i<this.coffeeMenu.length; i++) {
+			if(i!= 0 && i%4 == 0) {
+				x = 50;
+				y+= 50;
+			}
+			ImageIcon menu = new ImageIcon(new ImageIcon(coffee.get(i).getImage().getImage()).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+			this.coffeeMenu[i] = new JButton(menu);
+			this.coffeeMenu[i].setBounds(x,y,50,50);
+			this.coffeeMenu[i].addActionListener(this);
+			add(this.coffeeMenu[i]);
+			x+=50;
+		}
 		
 	}
 	private void setCoffee() {
@@ -52,18 +76,7 @@ public class OrderPanel extends Gui_MyUtil{
 		coffee.add(new Coffee(15,"더치시나몬",3000));
 		coffee.add(new Coffee(16,"더치코코넛라떼",3000));
 		
-		int x = 30;
-		int y = 30;
-		
-		this.menu = new KioskRect[coffee.size()];
-		for(int i=0; i<menu.length; i++) {
-			this.menu[i] = new KioskRect(i+1, x,y,70,70);
-			
-			
-			
-			y+=70;
-			
-		}
+	
 	}
 	private void setButton() {
 		this.backPage = new JButton();
@@ -103,15 +116,5 @@ public class OrderPanel extends Gui_MyUtil{
 			}
 		}
 	}
-	@Override
-	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paintComponent(g);
-		
-		for(int i=0; i<coffee.size(); i++) {
-			g.drawImage(coffee.get(i).getImage().getImage(), 30, 200, null);
-			
-		}
-		repaint();
-	}
+	
 }
