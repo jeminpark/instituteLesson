@@ -17,8 +17,8 @@ public class Coffee {
 		this.num = num;
 		this.name = name;
 		this.price = price;
-		this.fileName = String.format("images/coffee%d.png", this.num);
-		this.image = new ImageIcon(new ImageIcon(fileName).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+		this.fileName = String.format("images/coffee_sub%d.png", this.num);
+		this.image = new ImageIcon(new ImageIcon(fileName).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
 	}
 
 	public int getNum() {

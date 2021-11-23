@@ -18,7 +18,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	public MainFrame() {
 		setLayout(null);
 		setTitle("MainPage");
-		setBounds(560,100,700,800);
+		setBounds(560,100,700,1000);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		

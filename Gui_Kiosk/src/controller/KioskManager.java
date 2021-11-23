@@ -12,17 +12,17 @@ import javax.swing.JPanel;
 
 public class KioskManager extends Gui_MyUtil{
 
-	JButton takeOut;
-	JButton takeIn;
+	public JButton takeOut;
+	public JButton takeIn;
 	
 	
 	
-	ImageIcon mainBanner = new ImageIcon(new ImageIcon(String.format("images/mainBanner.png")).getImage().getScaledInstance(500, 200, Image.SCALE_SMOOTH));
-	ImageIcon takeInImage = new ImageIcon(new ImageIcon(String.format("images/takeIn.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
-	ImageIcon takeOutImage = new ImageIcon(new ImageIcon(String.format("images/takeOut.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+	private ImageIcon mainBanner = new ImageIcon(new ImageIcon(String.format("images/mainBanner.png")).getImage().getScaledInstance(500, 200, Image.SCALE_SMOOTH));
+	private ImageIcon takeInImage = new ImageIcon(new ImageIcon(String.format("images/takeIn.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+	private ImageIcon takeOutImage = new ImageIcon(new ImageIcon(String.format("images/takeOut.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
 	public KioskManager() {
 		setLayout(null);
-		setBounds(0,0, 700, 800);
+		setBounds(0,0, 700, 1000);
 		setBackground(new Color(218,173,45));
 		setButtons();
 		
@@ -36,11 +36,11 @@ public class KioskManager extends Gui_MyUtil{
 		takeOut = new JButton(takeOutImage);
 		takeIn = new JButton(takeInImage);
 		
-		this.takeIn.setBounds(170,450,150,150);
+		this.takeIn.setBounds(170,600,150,150);
 		this.takeIn.addActionListener(this);
 		add(this.takeIn);
 		
-		this.takeOut.setBounds(370,450,150,150);
+		this.takeOut.setBounds(370,600,150,150);
 		this.takeOut.addActionListener(this);
 		add(this.takeOut);
 		

@@ -1,5 +1,63 @@
 package model;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 public class Tea {
 
+	private int num;
+	private String name;
+	private int price;
+	private String fileName;
+	private ImageIcon image;
+	
+	public Tea(int num, String name, int price) {
+		this.num = num;
+		this.name = name;
+		this.price = price;
+		this.fileName = String.format("images/tea_sub%d.png", this.num);
+		this.image = new ImageIcon(new ImageIcon(fileName).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public ImageIcon getImage() {
+		return image;
+	}
+
+	public void setImage(ImageIcon image) {
+		this.image = image;
+	}
+	
 }
