@@ -1,14 +1,21 @@
 package controller;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import model.Coffee;
 import model.KioskRect;
@@ -21,8 +28,10 @@ public class OrderPanel extends Gui_MyUtil{
 	public static Vector<Coffee> coffee = new Vector<>();
 	public static Vector<Tea> tea = new Vector<>();
 	public static Vector<Vector<String>> orderlist = new Vector<>();
-	public static Vector<String> colName = new Vector<>();
+	private Vector<String> colName = new Vector<>();
 	
+	
+	private PayFrame payframe = null;
 	
 	private KioskRect[] menu = null;
 	private JButton coffeeButton;
@@ -31,12 +40,27 @@ public class OrderPanel extends Gui_MyUtil{
 	private JButton[] teaMenu;
 	private JButton pay;
 	
-	private JTable baguni;
+	private JTable baguni = null;
+	private JScrollPane js = null;
 	
 	private final int COFFEE = 0;
 	private final int TEA = 1;
+	private final int PAY = 2;
 	private int state;
 	
+	private int totalPrice;
+	private int totalCnt;
+	
+	private JLabel showPrice;
+	private JLabel showCnt;
+	
+	private JButton resetOrder;
+	private JButton tablevalidate;
+	
+	private boolean emptyCheck;
+	
+	//프레임창 끄기용
+
 	
 	public OrderPanel() {
 		setLayout(null);
@@ -53,47 +77,65 @@ public class OrderPanel extends Gui_MyUtil{
 		
 		setTable();
 		
+		setShowTotal();	
 		
 	}
 
+
+
+	private void setShowTotal() {
+		this.showPrice = new JLabel();		
+		this.showPrice.setText("총액: 0 원");
+		this.showPrice.setBounds(50,855, 150,45);
+		this.showPrice.setFont(new Font("",Font.PLAIN,20));
+		add(this.showPrice);
+	
+		this.showCnt = new JLabel();
+		this.showCnt.setText("주문 갯수: 0 개");
+		this.showCnt.setBounds(250,855, 170, 45);
+		this.showCnt.setFont(new Font("",Font.PLAIN,20));
+		add(this.showCnt);
+	}
+
+
+	
 	private void setTable() {
 		this.colName.add("음료이름");
 		this.colName.add("가격");
-		this.colName.add("갯수");
-		this.colName.add("총액");
-		
-		int x = 30;
-		int y = 600;
-				
+		this.colName.add("갯수");	
 		
 		this.baguni = new JTable(orderlist, colName);
-//		this.baguni.setBorder(x,y);
-//		
-//		JScrollpane scroll = new JScrollPane(baguni);
-//		scroll.set
+		this.baguni.setBounds(50,660,500,190);
+		this.baguni.setBorder(new LineBorder(Color.black));
+		this.baguni.setGridColor(Color.black);
+		this.baguni.addMouseListener(this);
+			
+		this.js = new JScrollPane(baguni);
+		this.js.setBounds(50,660,500,190);
+		add(this.js);
 		
+		this.baguni.revalidate();
+		this.baguni.repaint();
 		
 		
 	}
 	private void setTea() {
-		tea.add(new Tea(1,"허니레몬티",3500));
-		tea.add(new Tea(2,"허니유자티",3500));
-		tea.add(new Tea(3,"허니자몽티",3500));
-		tea.add(new Tea(4,"얼그레이",2500));
-		tea.add(new Tea(5,"국회차",2500));
-		tea.add(new Tea(6,"민트초코티",2500));
-		tea.add(new Tea(7,"캐모마일",2500));
-		tea.add(new Tea(8,"페퍼민트",2500));
-		tea.add(new Tea(9,"청포도에이드",3500));
-		tea.add(new Tea(10,"보이차",2500));
-		tea.add(new Tea(11,"루이보스",2500));
-		tea.add(new Tea(12,"로즈힐",2500));
-		tea.add(new Tea(13,"허비스커스",2500));
-		tea.add(new Tea(14,"복숭아아이스티",3000));
-		tea.add(new Tea(15,"블루레몬에이드",3500));
-		tea.add(new Tea(16,"자몽에이드",3500));
-		
-		
+		tea.add(new Tea(1,"허니레몬티",3500,10));
+		tea.add(new Tea(2,"허니유자티",3500,10));
+		tea.add(new Tea(3,"허니자몽티",3500,1));
+		tea.add(new Tea(4,"얼그레이",2500,10));
+		tea.add(new Tea(5,"국회차",2500,0));
+		tea.add(new Tea(6,"민트초코티",2500,10));
+		tea.add(new Tea(7,"캐모마일",2500,10));
+		tea.add(new Tea(8,"페퍼민트",2500,10));
+		tea.add(new Tea(9,"청포도에이드",3500,10));
+		tea.add(new Tea(10,"보이차",2500,10));
+		tea.add(new Tea(11,"루이보스",2500,10));
+		tea.add(new Tea(12,"로즈힐",2500,10));
+		tea.add(new Tea(13,"허비스커스",2500,10));
+		tea.add(new Tea(14,"복숭아아이스티",3000,10));
+		tea.add(new Tea(15,"블루레몬에이드",3500,10));
+		tea.add(new Tea(16,"자몽에이드",3500,10));	
 		
 		
 	}
@@ -144,22 +186,22 @@ public class OrderPanel extends Gui_MyUtil{
 		
 	}
 	private void setCoffee() {
-		coffee.add(new Coffee(1,"아메리카노",1500));
-		coffee.add(new Coffee(2,"스페셜아메리카노",2500));
-		coffee.add(new Coffee(3,"헤이즐넛 아메리카노",2000));
-		coffee.add(new Coffee(4,"유자아메리카노",2500));
-		coffee.add(new Coffee(5,"카푸치노",2500));
-		coffee.add(new Coffee(6,"카페라떼",2500));
-		coffee.add(new Coffee(7,"헤이즐넛라떼",3000));
-		coffee.add(new Coffee(8,"바닐라라떼",3000));
-		coffee.add(new Coffee(9,"크리미라떼",3000));
-		coffee.add(new Coffee(10,"헤이즐넛크리미라떼",3500));
-		coffee.add(new Coffee(11,"카페모카",3500));
-		coffee.add(new Coffee(12,"카라멜마키아또",3500));
-		coffee.add(new Coffee(13,"에스프레소",1500));
-		coffee.add(new Coffee(14,"더치커피",2500));
-		coffee.add(new Coffee(15,"더치시나몬",3000));
-		coffee.add(new Coffee(16,"더치코코넛라떼",3000));
+		coffee.add(new Coffee(1,"아메리카노",1500,10));
+		coffee.add(new Coffee(2,"스페셜아메리카노",2500,10));
+		coffee.add(new Coffee(3,"헤이즐넛 아메리카노",2000,10));
+		coffee.add(new Coffee(4,"유자아메리카노",2500,10));
+		coffee.add(new Coffee(5,"카푸치노",2500,10));
+		coffee.add(new Coffee(6,"카페라떼",2500,10));
+		coffee.add(new Coffee(7,"헤이즐넛라떼",3000,1));
+		coffee.add(new Coffee(8,"바닐라라떼",3000,0));
+		coffee.add(new Coffee(9,"크리미라떼",3000,10));
+		coffee.add(new Coffee(10,"헤이즐넛크리미라떼",3500,0));
+		coffee.add(new Coffee(11,"카페모카",3500,10));
+		coffee.add(new Coffee(12,"카라멜마키아또",3500,10));
+		coffee.add(new Coffee(13,"에스프레소",1500,0));
+		coffee.add(new Coffee(14,"더치커피",2500,10));
+		coffee.add(new Coffee(15,"더치시나몬",3000,10));
+		coffee.add(new Coffee(16,"더치코코넛라떼",3000,10));
 		
 	
 	}
@@ -186,7 +228,18 @@ public class OrderPanel extends Gui_MyUtil{
 		this.pay = new JButton(pay);
 		this.pay.setText("계산하기");
 		this.pay.setBounds(50,900,600,50);
+		this.pay.addActionListener(this);
 		add(this.pay);
+		
+		this.resetOrder = new JButton();
+		this.resetOrder.setText("<HTML><center>목록<br>초기화</center></HTML>");
+		this.resetOrder.setBounds(560, 660, 90,70);
+		this.resetOrder.addActionListener(this);
+		
+		
+		add(this.resetOrder);
+		
+	
 	}
 	
 	@Override
@@ -195,14 +248,7 @@ public class OrderPanel extends Gui_MyUtil{
 		super.actionPerformed(e);
 	
 		if(e.getSource() instanceof JButton) {
-			JButton target = (JButton) e.getSource();
-		
-			//커피메뉴액션이벤트		
-			
-			//커피메뉴를 클릭하면 커피메뉴버튼만 나오고 음료는 없어진다.
-			//음료메뉴를 클릭하면 음료메뉴버튼만 나오고 커피는 없어진다.
-			//커피메뉴버튼하고 인덱스는 아무상관이없는데 왜 자꾸 액션이 나오는거지			
-			
+			JButton target = (JButton) e.getSource();		
 			
 			if(target == this.coffeeButton) {			
 					
@@ -218,10 +264,24 @@ public class OrderPanel extends Gui_MyUtil{
 					this.coffeeMenu[i].setVisible(false);
 					this.teaMenu[i].setVisible(true);
 				}				
-				this.state = TEA;
-				
-				
+				this.state = TEA;	
 			}
+			else if(target == this.resetOrder) {
+				
+				if(emptyCheck) {
+					setResetOrder();
+					this.state = COFFEE;
+					
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "상품을 먼저 골라주세요.");
+				}
+			}
+			else if(target == this.pay) {
+				this.state = PAY;
+				
+			}		
+			
 			
 			//
 			int index = -1;
@@ -255,11 +315,63 @@ public class OrderPanel extends Gui_MyUtil{
 					
 				}
 			}
+			else if(this.state == PAY) {
+				if(emptyCheck) {
+					this.payframe = new PayFrame();
+					
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "상품을 먼저 골라주세요.");
+					this.state = COFFEE;
+				}
+			
+			}
+						
+			setTotal();	
+			this.showPrice.setText("총액: "+this.totalPrice+" 원");
+			this.showCnt.setText("주문 갯수: "+this.totalCnt+" 개");
 
 			
 			
 		}
 	}
+	private void setResetOrder() {
+		orderlist.clear();
+
+		DefaultTableModel reset = (DefaultTableModel) this.baguni.getModel();
+		reset.setNumRows(0);	
+	
+		this.baguni.revalidate();
+		this.baguni.repaint();
+		
+		this.emptyCheck = false;
+		
+		
+	}
+
+
+
+	private void setTotal() {
+		
+		int totalTemp = 0;
+		for(int i=0; i<orderlist.size(); i++) {
+			int price = Integer.parseInt(orderlist.get(i).get(1));
+			int cnt = Integer.parseInt(orderlist.get(i).get(2));
+			totalTemp += price* cnt;
+		}
+		this.totalPrice = totalTemp;
+		
+		int tempCnt = 0;
+		for(int i=0; i<orderlist.size(); i++) {
+			int cnt = Integer.parseInt(orderlist.get(i).get(2));
+			
+			tempCnt += cnt;
+		}
+		this.totalCnt = tempCnt;
+		
+		
+	}
+	
 	private void setOrderlist(String name, int price, int cnt) {
 	
 		Vector<String> order = new Vector<>();					//2차원벡터에 커피이름, 가격, 갯수를 내부인덱스별로 집어넣기 위해 임시 벡터 order를 생성		
@@ -270,7 +382,6 @@ public class OrderPanel extends Gui_MyUtil{
 			if(orderlist.get(i).get(0).equals(name)) {		//검증장치를 켠다.
 				check = true;
 				
-				
 			}
 		}
 		//장바구니에 중복된 이름이없으면
@@ -279,10 +390,13 @@ public class OrderPanel extends Gui_MyUtil{
 			//생성자를 이용한 초기화가아니라 2차원벡터에 외부인덱스 한곳의 내부인덱스에 커피이름, 가격, 갯수 집어넣기.
 			order.add(name);								//임시벡터 order 0번인덱스에 이름을넣고
 			order.add(price+"");							//임시벡터 order 1번인덱스에 가격을 넣고
-			order.add(cnt+"");								//임시벡터 order 2번인덱스에 갯수를 넣는다.
-			
+			order.add(cnt+"");					//임시벡터 order 2번인덱스에 갯수를 넣는다.
+						
 			orderlist.add(order);							//장바구니 2차원벡터에 집어넣으면 한개의 외부인덱스에 3개의 내부인덱스가 생기면서 저장이됨.
 			
+			this.baguni.revalidate();
+			this.baguni.repaint();
+			this.emptyCheck = true;
 		}
 		//장바구니에 중복된 이름이 있으면
 		else {
@@ -297,6 +411,9 @@ public class OrderPanel extends Gui_MyUtil{
 			}
 			int num = Integer.parseInt(orderlist.get(choosed).get(2)); //장바구니 리스트에 저장된 제품의 갯수를 변수에 저장.
 			orderlist.get(choosed).set(2, (num+1)+"");		//장바구니 리스트의 해당 인덱스의 제품의 갯수를 증가시켜준다.
+			
+			this.baguni.revalidate();
+			this.baguni.repaint();
 		}
 		for(int i=0; i<orderlist.size(); i++) {
 			System.out.println(orderlist.get(i).get(0)+"/"+orderlist.get(i).get(1)+"/"+orderlist.get(i).get(2));//장바구니리스트에 잘 추가되었나 확인용
@@ -306,6 +423,18 @@ public class OrderPanel extends Gui_MyUtil{
 		
 		
 	}
+	//테이블 수정
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		super.mousePressed(e);
+		
+		if(e.getSource() == this.baguni) {
+			
+		}
+		
+	}
+	
 
 	
 }

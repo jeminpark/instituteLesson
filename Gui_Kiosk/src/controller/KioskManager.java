@@ -14,7 +14,7 @@ public class KioskManager extends Gui_MyUtil{
 
 	public JButton takeOut;
 	public JButton takeIn;
-	
+	public JButton admin;
 	
 	
 	private ImageIcon mainBanner = new ImageIcon(new ImageIcon(String.format("images/mainBanner.png")).getImage().getScaledInstance(500, 200, Image.SCALE_SMOOTH));
@@ -35,6 +35,7 @@ public class KioskManager extends Gui_MyUtil{
 	private void setButtons() {
 		takeOut = new JButton(takeOutImage);
 		takeIn = new JButton(takeInImage);
+		this.admin = new JButton();
 		
 		this.takeIn.setBounds(170,600,150,150);
 		this.takeIn.addActionListener(this);
@@ -44,6 +45,10 @@ public class KioskManager extends Gui_MyUtil{
 		this.takeOut.addActionListener(this);
 		add(this.takeOut);
 		
+		this.admin.setBounds(250,800,150,150);
+		this.admin.setText("°ü¸®ÀÚ");
+		this.admin.addActionListener(this);
+		add(this.admin);
 	}
 
 
@@ -65,12 +70,7 @@ public class KioskManager extends Gui_MyUtil{
 		if(e.getSource() instanceof JButton) {
 			JButton target = (JButton) e.getSource();
 			
-			if(target == this.takeIn) {
-				
-			}
-			else if(target == this.takeOut) {
-				
-			}
+			
 		}
 		
 	}

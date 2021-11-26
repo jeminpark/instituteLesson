@@ -9,16 +9,30 @@ public class Tea {
 	private int num;
 	private String name;
 	private int price;
+	private int stock;
+	
 	private String fileName;
 	private ImageIcon image;
 	
-	public Tea(int num, String name, int price) {
+	public Tea(int num, String name, int price , int stock) {
 		this.num = num;
 		this.name = name;
 		this.price = price;
+		this.stock = stock;
 		this.fileName = String.format("images/tea_sub%d.png", this.num);
 		this.image = new ImageIcon(new ImageIcon(fileName).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
 	}
+
+	
+	public int getStock() {
+		return stock;
+	}
+
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 
 	public int getNum() {
 		return num;
