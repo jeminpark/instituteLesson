@@ -50,7 +50,7 @@
     <form method= "GET" action = "_03_join.jsp">
         
         <ul>
-            <li><input type = "checkbox" class = "box1" name = "choiceAll" id = "choiceAll"><span>필수정보 선택정보 모두동의
+            <li><input type = "checkbox" class = "box1" name = "choiceAll" onclick = "checkAllBox(this)"><span>필수정보 선택정보 모두동의
                 <h3 class = "article1"> 여러분 환영합니다.</h3><p>본 예제의 이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택), 프로모션 정보 수신(선택)에 모두 동의합니다.</p></span></li>
             <li><input type = "checkbox" class = "box1" name = "necessary"><span>이용약관동의(필수)
                 <h3 class = "article2"> 회원으로 가입하시면 예제 서비스를 보다 편리하게 이용할 수 있습니다.</h3><p>본 예제 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다.

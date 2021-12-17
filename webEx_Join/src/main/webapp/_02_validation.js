@@ -3,17 +3,7 @@
  */
 
 
-const choiceAllBox = document.querySelector("choiceAll");
-
-choiceAllBox
-
-if(document.querySelector("#choiceAll").checked === true){
-	
-	alert("hi");
-	choiceAll();
-}
-function choiceAll(){
-	$(".box1").checked= true;
+function checkAllBox(selectAll){
 	
 }
 
