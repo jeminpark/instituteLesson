@@ -58,25 +58,55 @@ function checkVal(form){
 }
 
 function passwordTest(){
-	let pw1 = document.getElementById("pw1").value;
-	let pw2 = document.getElementById("pw2").value;
+	let pw1 = document.querySelector("#pw1").value;
+	let pw2 = document.querySelector("#pw2").value;
 	
 	if(pw1 !=="" && pw2 !==""){
 		
 		if(pw1 === pw2){
-			
+			return true;
 		}
 		else{
 			alert("비밀번호가 일치하지 않습니다.");
-			
+			document.querySelector("#pw1").value = "";
+			document.querySelector("#pw2").value = "";
+			//console.log(pw1);
+			//console.log(pw2);
+			document.querySelector("#pw1").focus();
 		}
 	}
+	
 	
 }
 function dataChange(form){
 	const joinData = form;
 	
 	checkInfo(joinData);
+}
+function checkBirth(){
+	
+	const year = document.querySelector("#yyyy").value;
+	const date = document.querySelector("#dddd").value;
+	
+	if(year >= 1900 && year <= 2021){
+		if(date >= 1 && date <= 31){
+			return true;
+		}
+		else{
+			alert("날짜를 다시 입력해주세요. 1~31");
+			$("#dddd").val("");
+			$("#dddd").focus();
+		}
+		
+	}
+	else{
+		alert("연도를 다시 입력해주세요. 1900 ~ 2021")
+		$("#yyyy").val("");
+		$("#yyyy").focus();
+	}
+	
+	
+	
 }
 
 function checkInfo(data){
@@ -90,10 +120,28 @@ function checkInfo(data){
 			console.log(cnt);
 		}
 	}
-	if(cnt === 10){
-		//form.submit();
+	if(cnt === 9){
+		data.submit();
 	}
 	else{
 		document.querySelector("p#errorMsg").innerHTML = `${"인적사항을 정확히 기입해주세요."}`;
+	}
+}
+
+function checkEmail(){
+	const inputEmail = document.querySelector("#email").value;
+	
+	let emailEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+
+
+	if(inputEmail.match(emailEx) != null){
+		
+		return false;
+	}
+	else{
+		alert("이메일 형식이 올바르지 않습니다.");
+		$("#email").val("");
+		$("#email").focus();
+		return true;
 	}
 }

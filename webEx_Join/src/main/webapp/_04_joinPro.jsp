@@ -4,6 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+	body{
+		display:flex;
+		align-item: center;
+		flex-direction:column;
+		justify-content: space-around;
+	}
+	h1{
+		text-align: center;
+	}
+
+</style>
 <title>Success</title>
 </head>
 <body>
