@@ -110,6 +110,27 @@ function checkBirth(){
 }
 
 function checkInfo(data){
+	const id = data.id.value;
+	const pw1 = data.pw1.value;
+	const pw2 = data.pw2.value;
+	const name = data.names.value;
+	const yyyy = data.yyyy.value;
+	const mmmm = data.mmmm.value;
+	const dddd = data.dddd.value;
+	const gender = data.gender.value;
+	const mobile = data.mobile.value;
+	
+	if(id === "" || pw1 === "" || pw2 === "" || name === "" ||
+		yyyy === "" || mmmm === "" || dddd === "" || gender === "" || mobile === "" ){
+			document.querySelector("p#errorMsg").innerHTML = `${"인적사항을 정확히 기입해 주세요."}`;
+	}
+	else{
+		data.submit();
+	}
+	
+}
+
+/*function checkInfo(data){
 	let cnt = 0;
 	for(let i=0; i<data.required.length; i++){
 		
@@ -127,7 +148,7 @@ function checkInfo(data){
 		document.querySelector("p#errorMsg").innerHTML = `${"인적사항을 정확히 기입해주세요."}`;
 	}
 }
-
+*/
 function checkEmail(){
 	const inputEmail = document.querySelector("#email").value;
 	
@@ -143,5 +164,21 @@ function checkEmail(){
 		$("#email").val("");
 		$("#email").focus();
 		return true;
+	}
+}
+
+function loginCheck(form){
+	
+	const id = form.id.value;
+	const pw = form.pw.value;
+	
+	if(id !== "" && pw !== ""){
+		form.submit();
+	}
+	else{
+		$("#errorMsg").text(`${"아이디와 비밀번호를 정확히 입력해주세요."}`);
+		$(document).ready(function(){
+			$("input[name = id]").focus();
+		});
 	}
 }
