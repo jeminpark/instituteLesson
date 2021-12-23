@@ -17,6 +17,8 @@
 	}
 	h1{
 		text-align: center;
+		font-size: 3em;
+		color: lightgrey;
 	}
 	h3{
 		font-size: 0.8em;
@@ -30,6 +32,8 @@
 		display:flex;
 		align-item:center;
 		justify-content: center;
+		
+		
 	
 	}
 	input[type = "submit"]{
@@ -38,6 +42,12 @@
             border: none;
             color: white;
             background-color: green;
+            
+            border-radius : 10px 10px 10px 10px;
+	}
+	#last{
+		font-size: 1.5em;
+		
 	}
 
 </style>
@@ -67,7 +77,7 @@
 		
 		if(dao.checkDuplId(id)){%>
 			<h1>가입성공</h1>
-			<h1>회원가입을 진심으로 환영합니다.</h1>
+			<h1>회원가입을 환영합니다.</h1>
 		<% 
 			User_DTO user = new User_DTO(id, pw1, name, birth, gender, email, mobile);
 		
@@ -76,7 +86,7 @@
 			ArrayList<User_DTO> users = dao.getUsers();
 			User_DTO last = users.get(users.size()-1);
 		
-			%><h1><%=last.toString() %></h1>
+			%><h1 id = "last"><%=last.toString() %></h1>
 		
 		
 			<form method = "post" action = "_05_Login.jsp">
@@ -96,12 +106,12 @@
 	
 				<%} %>
 	
-					</h3>
+			</h3>
 				<%}
 		else{%>
 			<h1> 중복된 아이디가 있습니다.</h1>
 			<form action = "_03_join.jsp">
-			<input type = "submit" value = "가입페이지로 돌아가기">
+			<input type = "submit" value = " 가입페이지로 돌아가기 ">
 			</form>
 		<%} %>	
 	
