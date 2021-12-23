@@ -60,9 +60,14 @@ public class User_DAO {
 				int code = rs.getInt(1);
 				String id = rs.getString(2);
 				String pw = rs.getString(3);
-				Timestamp regDate = rs.getTimestamp(4);
+				String name = rs.getString(4);
+				String birth = rs.getString(5);
+				String gender = rs.getString(6);
+				String email = rs.getString(7);
+				String mobile = rs.getString(8);
+				Timestamp regDate = rs.getTimestamp(9);
 				
-				User_DTO user = new User_DTO(code, id, pw, regDate);
+				User_DTO user = new User_DTO(code, id, pw,name, birth, gender, email, mobile, regDate);
 				users.add(user);
 			}
 		}
@@ -80,11 +85,16 @@ public class User_DAO {
 			
 			try {
 				conn = getConnection();
-				String sql = "insert into users(id, pw, regDate) values (?,?,?)";
+				String sql = "insert into users(id, pw, name, birth, gender, email, mobile, regDate) values (?,?,?,?,?,?,?,?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, user.getId());
 				pstmt.setString(2, user.getPw());
-				pstmt.setTimestamp(3, new Timestamp(Calendar.getInstance().getTimeInMillis()));
+				pstmt.setString(3, user.getName());
+				pstmt.setString(4, user.getBirth());
+				pstmt.setString(5, user.getGender());
+				pstmt.setString(6, user.getEmail());
+				pstmt.setString(7, user.getMobile());
+				pstmt.setTimestamp(8, new Timestamp(Calendar.getInstance().getTimeInMillis()));
 				
 				pstmt.executeUpdate();
 				
@@ -97,7 +107,7 @@ public class User_DAO {
 	}
 
 
-	private boolean checkDuplId(String id) {
+	public boolean checkDuplId(String id) {
 		
 		users = getUsers();
 		

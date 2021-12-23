@@ -44,8 +44,7 @@
 <title>Success</title>
 </head>
 <body>
-	<h1>가입성공</h1>
-	<h1>회원가입을 진심으로 환영합니다.</h1>
+	
 	<%
 		request.setCharacterEncoding("utf-8");
 	
@@ -58,32 +57,53 @@
 		String mmmm = request.getParameter("mmmm");
 		String dddd = request.getParameter("dddd");
 		String gender = request.getParameter("gender");
+		String email = request.getParameter("emails");
 		String mobile = request.getParameter("mobile");
 	
-	
-		User_DAO dao = User_DAO.getInstance();		
-		User_DTO user = new User_DTO(id, pw1);
+		String birth = yyyy+"-"+mmmm+"-"+dddd;
 		
-		dao.addUser(user);
 		
-		ArrayList<User_DTO> users = dao.getUsers();
-		User_DTO last = users.get(users.size()-1);
+		User_DAO dao = User_DAO.getInstance();
 		
+		if(dao.checkDuplId(id)){%>
+			<h1>가입성공</h1>
+			<h1>회원가입을 진심으로 환영합니다.</h1>
+		<% 
+			User_DTO user = new User_DTO(id, pw1, name, birth, gender, email, mobile);
+		
+			dao.addUser(user);
+		
+			ArrayList<User_DTO> users = dao.getUsers();
+			User_DTO last = users.get(users.size()-1);
+		
+			%><h1><%=last.toString() %></h1>
+		
+		
+			<form method = "post" action = "_05_Login.jsp">
 	
-	%>
-	<h1><%=last.toString() %></h1>
+				<input type = "submit" value = "로그인페이지로 이동">
 	
-	<form method = "post" action = "_05_Login.jsp">
+			</form>
 	
-	<input type = "submit" value = "로그인페이지로 이동">
+			<h3>가입자 정보
 	
-	</form>
+			<%--<%="id:"+id+"pw1:"+pw1+"pw2:"+pw2+"name:"+name+"birth:"+birth+"gender:"+gender+"email"+email+"mobile:"+mobile %>  --%>
 	
-	<h3>가입자 정보
-	<p><%="Id: "+id+" Pw1: "+pw1+" Pw2: "+pw2+" name: "+name+" birth: "+yyyy+","+mmmm+","+dddd+" gender: "+gender+" mobile: "+mobile %></p>
+				<%for(User_DTO printUser : users){ %>
+					<p><%="Id: "+printUser.getId()+" pw: "+printUser.getPw()+" name: "+printUser.getName()+" birth: "+printUser.getBirth()+
+							" gender: "+printUser.getGender()+" email: "+printUser.getEmail()+" mobile: "+printUser.getMobile()%>
+					</p>
 	
+				<%} %>
 	
-	</h3>
+					</h3>
+				<%}
+		else{%>
+			<h1> 중복된 아이디가 있습니다.</h1>
+			<form action = "_03_join.jsp">
+			<input type = "submit" value = "가입페이지로 돌아가기">
+			</form>
+		<%} %>	
 	
 </body>
 </html>

@@ -64,7 +64,7 @@
                                                 <option value = "nonchoice">선택안함</option></select><br>
 
         <span>본인확인 이메일</span><input type = "email" name = 'emails' id = "email" onchange = 'checkEmail()'><br>
-        <span>휴대전화<input type = "tel" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" name = mobile></span><br>                        
+        <span>휴대전화<input type = "tel" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" name = 'mobile'></span><br>                        
         <p id = 'errorMsg'></p>
         <input type = "button" value = "가입하기" onclick = "dataChange(form)">
     </form>
