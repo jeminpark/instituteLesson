@@ -67,7 +67,7 @@
 			session.setAttribute("log", id);
 			session.removeAttribute("log");
 			
-			%><h1><%=loginId+"님 환영합니다." %></h1>
+			%><h1><%=loginId+"님 로그인 성공." %></h1>
 		<%} %>
 	
 	
