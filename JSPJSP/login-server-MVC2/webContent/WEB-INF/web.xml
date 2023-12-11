@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>login-server-MVC2</display-name>
+  <welcome-file-list>    
+    <welcome-file>index.jsp</welcome-file>
+	    
+  </welcome-file-list>
+
+
+<!-- 변수명처럼 joinServlet 을 선언-->
+<!-- 해당 이름의 대상을 JoinServlet (실제존재)-->
+<!-- JoinServlet 이라는 실제존재 서블릿클래스를 찾아서 join이라는 닉네임을 붙인것임.-->
+<servlet>
+	<servlet-name>join</servlet-name>
+	<servlet-class>/JoinServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>join</servlet-name>
+	<url-pattern>/join</url-pattern>
+
+</servlet-mapping>
+
+
+</web-app>
